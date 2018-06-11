@@ -19,7 +19,7 @@
 
 # Overview
 
-An IMDB scraper built with Vanilla Javascript and Express. I deployed the final project to Heroku. You can see the final project [here](#).
+An IMDB scraper built with Vanilla Javascript and Express. I deployed the final project to _now_. You can see the final project [here](my-imdb-scraper.now.sh).
 
 # Tools
 
@@ -27,4 +27,4 @@ An IMDB scraper built with Vanilla Javascript and Express. I deployed the final 
 - Express/Node
 - Cheerio
 - nodemon
-- Heroku
+- now
