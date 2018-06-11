@@ -1,11 +1,12 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
-const url = 'https://www.imdb.com/find?s=tt&ttype=ft&ref_=fn_ft&q=';
+const serachUrl = 'https://www.imdb.com/find?s=tt&ttype=ft&ref_=fn_ft&q=';
+const movieUrl = 'https://www.imdb.com/title/';
 
 // fetch data from url
 function searchMovies(searchTerm) {
-  return fetch(`${url}${searchTerm}`)
+  return fetch(`${serachUrl}${searchTerm}`)
     .then(response => response.text())
     .then(body => {
       const movies = [];
@@ -30,6 +31,28 @@ function searchMovies(searchTerm) {
     });
 }
 
+// get a specific movie
+function getMovie(imdbID) {
+  return fetch(`${movieUrl}${imdbID}`)
+    .then(response => response.text())
+    .then(body => {
+      const $ = cheerio.load(body);
+      const $title = $('.title_wrapper h1');
+
+      const title = $title
+        .first()
+        .contents()
+        .filter(function() {
+          return this.type === 'text';
+        })
+        .text()
+        .trim();
+
+      return { title };
+    });
+}
+
 module.exports = {
-  searchMovies
+  searchMovies,
+  getMovie
 };

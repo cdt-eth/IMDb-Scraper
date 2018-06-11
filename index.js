@@ -16,6 +16,12 @@ app.get('/search/:title', (req, res) => {
   });
 });
 
+app.get('/movie/:imdbID', (req, res) => {
+  scraper.getMovie(req.params.imdbID).then(movie => {
+    res.json(movie);
+  });
+});
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
