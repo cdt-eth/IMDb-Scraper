@@ -4,6 +4,9 @@ const cheerio = require('cheerio');
 const serachUrl = 'https://www.imdb.com/find?s=tt&ttype=ft&ref_=fn_ft&q=';
 const movieUrl = 'https://www.imdb.com/title/';
 
+const searchCache = {};
+const movieCache = {};
+
 // fetch data from url
 function searchMovies(searchTerm) {
   return fetch(`${serachUrl}${searchTerm}`)
@@ -79,6 +82,55 @@ function getMovie(imdbID) {
       // get movie poster
       const poster = $('img[itemProp="image"]').attr('src');
 
+      // get summary
+      const summary = $('div.summary_text')
+        .text()
+        .trim();
+
+      // get director
+      const director = $('span[itemProp="director"]')
+        .text()
+        .trim();
+
+      // get director(s)
+      const directors = [];
+
+      function getItems(itemArray) {
+        return function(i, element) {
+          const item = $(element)
+            .text()
+            .trim();
+
+          itemArray.push(item);
+        };
+      }
+
+      $('span[itemProp="director"]').each(getItems(directors));
+
+      // get writer(s)
+      const writers = [];
+
+      $('.credit_summary_item span[itemProp="creator"]').each(getItems(writers));
+
+      // get movie star(s)
+      const stars = [];
+
+      $('.credit_summary_item span[itemProp="actors"]').each(getItems(stars));
+
+      // get storyline
+      const storyLine = $('span[itemProp="description"]')
+        .text()
+        .trim();
+
+      // get companies
+      const companies = [];
+
+      $('span[itemType="http://schema.org/Organization"]').each(getItems(companies));
+
+      // get trailer
+      const trailer = $('a[itemProp="trailer"]').attr('href');
+
+      // return statement
       return {
         imdbID,
         title,
@@ -87,7 +139,14 @@ function getMovie(imdbID) {
         genres,
         datePublished,
         imdbRating,
-        poster
+        poster,
+        summary,
+        directors,
+        writers,
+        stars,
+        storyLine,
+        companies,
+        trailer: `https://www.imdb.com${trailer}`
       };
     });
 }
