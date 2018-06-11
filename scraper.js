@@ -9,6 +9,12 @@ const movieCache = {};
 
 // fetch data from url
 function searchMovies(searchTerm) {
+  // caching for the searched terms
+  if (searchCache[searchTerm]) {
+    console.log('Serving from cache: ', searchTerm);
+    return Promise.resolve(searchCache[searchTerm]);
+  }
+
   return fetch(`${serachUrl}${searchTerm}`)
     .then(response => response.text())
     .then(body => {
@@ -30,12 +36,20 @@ function searchMovies(searchTerm) {
         movies.push(movie);
       });
 
+      searchCache[searchTerm] = movies;
+
       return movies;
     });
 }
 
 // get a specific movie
 function getMovie(imdbID) {
+  // caching for the searched movies
+  if (movieCache[imdbID]) {
+    console.log('Serving from cache: ', imdbID);
+    return Promise.resolve(movieCache[imdbID]);
+  }
+
   return fetch(`${movieUrl}${imdbID}`)
     .then(response => response.text())
     .then(body => {
@@ -131,7 +145,7 @@ function getMovie(imdbID) {
       const trailer = $('a[itemProp="trailer"]').attr('href');
 
       // return statement
-      return {
+      const movie = {
         imdbID,
         title,
         rating,
@@ -148,6 +162,10 @@ function getMovie(imdbID) {
         companies,
         trailer: `https://www.imdb.com${trailer}`
       };
+
+      movieCache[imdbID] = movie;
+
+      return movie;
     });
 }
 
