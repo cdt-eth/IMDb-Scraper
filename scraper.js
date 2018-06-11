@@ -39,6 +39,7 @@ function getMovie(imdbID) {
       const $ = cheerio.load(body);
       const $title = $('.title_wrapper h1');
 
+      // get title
       const title = $title
         .first()
         .contents()
@@ -48,7 +49,33 @@ function getMovie(imdbID) {
         .text()
         .trim();
 
-      return { title };
+      // get rating
+      const rating = $('meta[itemProp="contentRating"]').attr('content');
+
+      // get runtime
+      const runTime = $('time[itemProp="duration"]')
+        .first()
+        .contents()
+        .filter(function() {
+          return this.type === 'text';
+        })
+        .text()
+        .trim();
+
+      // get genres
+      const genres = [];
+
+      $('span[itemProp="genre"]').each(function(i, element) {
+        const genre = $(element).text();
+        genres.push(genre);
+      });
+
+      return {
+        title,
+        rating,
+        runTime,
+        genres
+      };
     });
 }
 
