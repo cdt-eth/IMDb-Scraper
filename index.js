@@ -1,10 +1,18 @@
 const express = require('express');
+const scraper = require('./scraper');
 
 const app = express();
 
 app.get('/', (req, res) => {
   res.json({
     message: 'Scraping is fun!'
+  });
+});
+
+// /search/star wars
+app.get('/search/:title', (req, res) => {
+  scraper.searchMovies(req.params.title).then(movies => {
+    res.json(movies);
   });
 });
 
