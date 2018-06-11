@@ -5,7 +5,7 @@
 <img height="80" width="80" alt="palette" src="https://user-images.githubusercontent.com/26611339/41251421-e0e39fda-6d87-11e8-9aca-30ff61500cff.png" />
 </a>
 
-<p> An IMDB scraper built with React. </p>
+<p> An IMDB scraper built with Vanilla Javascript and Express. </p>
 </div>
 
 <hr />
@@ -19,11 +19,12 @@
 
 # Overview
 
-An IMDB scraper built with React. I deployed the final project to Heroku. You can see the final project [here](#).
+An IMDB scraper built with Vanilla Javascript and Express. I deployed the final project to Heroku. You can see the final project [here](#).
 
 # Tools
 
-- React
-- Express
+- Vanilla JS
+- Express/Node
 - Cheerio
+- nodemon
 - Heroku
