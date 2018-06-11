@@ -70,11 +70,24 @@ function getMovie(imdbID) {
         genres.push(genre);
       });
 
+      // get release date
+      const datePublished = $('meta[itemProp="datePublished"]').attr('content');
+
+      // get imdb rating
+      const imdbRating = $('span[itemProp="ratingValue"]').text();
+
+      // get movie poster
+      const poster = $('img[itemProp="image"]').attr('src');
+
       return {
+        imdbID,
         title,
         rating,
         runTime,
-        genres
+        genres,
+        datePublished,
+        imdbRating,
+        poster
       };
     });
 }
