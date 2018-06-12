@@ -21,7 +21,7 @@
 
 An IMDB scraper built with Vanilla Javascript and Express. It scrapes IMDB to show general search results as well as data from a specific movie page. Node fetch was used to make the request and Cheerio was used to parse it. Caching was implemented as well. I deployed the final project to [_now_](https://zeit.co/now). You can see the final project [here](https://my-imdb-scraper.now.sh/).
 
-I also made a fronted UI for it to view it all cleanly. It makes requests to this api and display all the search data as well as movie page data. I used Bootstrap for styling and also deployed it using [_now_](https://zeit.co/now). You can see that [here](https://imdb-search.now.sh/).
+I also made a frontend UI for it to view it all cleanly. It makes requests to this api and display all the search data as well as movie page data. I wrote some regex to parse the movie urls and display the movie posters in a high-res format. I also added a placeholder image for untitled movies that don't have a poster yet. I used Bootstrap for styling and also deployed it using [_now_](https://zeit.co/now). You can see that [here](https://imdb-search.now.sh/).
 
 # Tools
 
@@ -31,4 +31,5 @@ I also made a fronted UI for it to view it all cleanly. It makes requests to thi
 - cors
 - nodemon
 - Bootstrap
+- regex
 - [_now_](https://zeit.co/now)
