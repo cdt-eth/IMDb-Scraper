@@ -3,6 +3,7 @@ const cors = require('cors');
 const scraper = require('./scraper');
 
 const app = express();
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.json({
