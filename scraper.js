@@ -28,10 +28,16 @@ function searchMovies(searchTerm) {
         const imdbID = $title.attr('href').match(/title\/(.*)\//)[1];
 
         const movie = {
-          image: $image.attr('src'),
+          image: $image.attr('src').match('.+@'),
           title: $title.text(),
           imdbID
         };
+
+        // add noimage image
+        if (movie.image == null) {
+          movie.image =
+            'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/180x268/film-173410679._CB499558812_.png';
+        }
 
         movies.push(movie);
       });
@@ -94,7 +100,9 @@ function getMovie(imdbID) {
       const imdbRating = $('span[itemProp="ratingValue"]').text();
 
       // get movie poster
-      const poster = $('img[itemProp="image"]').attr('src');
+      const poster = $('img[itemProp="image"]')
+        .attr('src')
+        .match('.+@');
 
       // get summary
       const summary = $('div.summary_text')
